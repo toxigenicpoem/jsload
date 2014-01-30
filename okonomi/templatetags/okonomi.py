@@ -10,49 +10,32 @@ register = template.Library()
 def jsrequire(parse, token):
     """
         Syntax::
-            {% jsrequire path_relative_to_STATIC_URL|url %}
+            {% jsrequire "<path_to_script>" [{arg}] %}
 
-        Examples::
-            {% jsrequire /formcheckin.js %}
-            {% jsrequire /jqueryui/accordian.js %}
-            {% jsinclde https://maps.google.com/api/?key=123 %}
-
+        Example::
+            {% jsrequire "/widgets/receipt.js" 183.92 %}
     """
+    # What is the tokens param???
     tokens = token.split_contents()
     if len(tokens) < 2:
-        raise template.TemplateSyntaxError('Need a path relative to STATIC_URL or a fully qualified url.')
+        raise template.TemplateSyntaxError('Missing path to script. jsload')
 
-    path_or_url = tokens.pop()
-    path = None
-    url = None
-    if path_or_url.startswith('http'):
-        url = path_or_url
-    else:
-        path = path_or_url
-
-    return JSRequireNode(path, url)
+    path = tokens.pop() #????????
+    return JSRequireNode(path) # With no urls, this whole class can be removed???
 
 class JSRequireNode(template.Node):
-    def __init__(self, path=None, url=None):
-        if not (path or url):
-            raise template.TemplateSyntaxError('Expected either a relative path or a fully qualified url. Got nothing')
-        if path and url:
-            raise template.TemplateSyntaxError('Expected either a relative path or a fully qualified url. Got both')
-        if path:
-            self.path = path
-            self.url = None
-        if url:
-            self.path = None
-            self.url = url
+    def __init__(self, path):
+        self.path = path
 
     def render(self, context):
+        # Where does okonomi paths come from???
         if self.path and 'okonomi_paths' in context:
-            context['okonomi_paths'].append(self.resolve_template_variables(self.path, context))
-        if self.url and 'okonomi_urls' in context:
-            context['okonomi_urls'].append(self.resolve_template_variables(self.url, context))
-
+            # No need to 'resolve paths' since we're not doing urls
+            resolved_path = self.resolve_template_variables(self.path, context)
+            context['okonomi_paths'].append(resolved_path)
         return '<!-- requires %s -->' % (self.path or self.url)
 
+    # !!!!!!!!!!!! Can probably remove this?? vvvvvvv !!!!!!!!!!!!!!
     def resolve_template_variables(self, path, context):
         """ Resolve any template variables in the path, it must be within double quotes.
             e.g. path `http://maps.google.com/maps?&key="{{ googlemaps_api_key }}"`
