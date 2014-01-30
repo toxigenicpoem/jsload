@@ -1,20 +1,13 @@
-okonomi
-=======
+JSLoad
+======
 
-Incredibly simple static javascript file handling.
+Example:
 
-from any template, as many times as you want::
+    {% jsload "/widgets/receipt.js" 183.92 %}
 
-    {% jsrequire /path/to/my/js.js %}
-
-or::
-
-    {% jsrequire http://google.com/some/api %}
-
-``okonomi`` will take care of getting just the right ``<script>`` includes into the
+JSLoad will take care of getting just the right ``<script>`` includes into the
 HEAD of your template using the hideous ``${JS}`` sigil that you must include in
 a base template somewhere.
-
 
 django settings
 ---------------
@@ -22,7 +15,6 @@ django settings
 * ``OKONOMI_STATIC_PATH`` set this to whatever makes sense for your django project.
 * ``OKONOMI_HTML_PATH_TEMPLATE`` defaults to ``<script type="text/javascript" src="%s"></script>\n``
 * ``OKONOMI_HTML_URL_TEMPLATE`` defaults to ``<script type="text/javascript" src="%s"></script>\n``
-
 
 Requirements
 ============
@@ -60,12 +52,9 @@ Remote hosted media
 * middleware:
     * insert ``<script src="url"></script>`` for each remote include
 
+------------------------
 
-author
-------
-Nathaniel Smith <nate.smith@coxinc.com>
-for Cox Media Group Digital & Strategy
-
-license
--------
-okonomi is licensed under the MIT license.
+Derek Anderson <derek.anderson@coxinc.com>  
+Dan Cobb <dan.cobb@coxinc.com>  
+for Cox Media Group Technology  
+License: MIT

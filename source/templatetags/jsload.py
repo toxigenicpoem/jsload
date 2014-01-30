@@ -1,29 +1,27 @@
 import re
-import logging
-
 from django import template
 
-logger = logging.getLogger(__name__)
 register = template.Library()
 
-@register.tag(name="jsrequire")
-def jsrequire(parse, token):
+@register.tag(name="jsload")
+def jsload(parse, token):
     """
         Syntax::
-            {% jsrequire "<path_to_script>" [{arg}] %}
+            {% jsload "<path_to_script>" [{arg}] %}
 
         Example::
-            {% jsrequire "/widgets/receipt.js" 183.92 %}
+            {% jsload "/widgets/receipt.js" 183.92 %}
     """
-    # What is the tokens param???
+    # What is the token param???
     tokens = token.split_contents()
     if len(tokens) < 2:
-        raise template.TemplateSyntaxError('Missing path to script. jsload')
+        raise template.TemplateSyntaxError('Missing path to script.')
 
     path = tokens.pop() #????????
-    return JSRequireNode(path) # With no urls, this whole class can be removed???
+    return JSLoadNode(path) # With no urls, this whole class can be removed???
 
-class JSRequireNode(template.Node):
+# What does this class even do??
+class JSLoadNode(template.Node):
     def __init__(self, path):
         self.path = path
 
