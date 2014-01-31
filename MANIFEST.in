@@ -1,4 +1,3 @@
 include setup.py
 include README.rst
-recursive-include okonomi *
-
+recursive-include jsload *

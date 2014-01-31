@@ -26,8 +26,5 @@ class OkonomiJavascript(object):
             js = okonomi.utils.generate_js(combined_path)
 
         cache.set(cache_key, js)
-        
-        # here, filters can be applied (like minifying gzipping etc)
 
         return HttpResponse(js, mimetype="text/javascript")
-

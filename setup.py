@@ -3,14 +3,14 @@ from setuptools import setup, find_packages
 long_description = open('README.rst').read()
 
 setup(
-    name = "okonomi",
+    name = "jsload",
     version = "0.1.1",
     packages = find_packages(),
     author = "Cox Media Group",
     author_email = "opensource@coxinc.com",
-    description = "smart JS loading for Django",
+    description = "JS loading for Django",
     license = "MIT",
-    url = "https://github.com/coxmediagroup/okonomi",
+    url = "https://github.com/cobbdb/jsload.git",
     zip_safe = False,
     keywords = "javascript, loader, templatetag, django",
     long_description = long_description,

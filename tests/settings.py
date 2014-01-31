@@ -1,1 +1,1 @@
-OKONOMI_STATIC_URL = '/okonomi/static/url'
+JSLOAD_STATIC_URL = '/jsload/static/url'
