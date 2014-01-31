@@ -15,12 +15,9 @@ class OkonomiJavascript(object):
             combined_path = kwargs['combined_path']
         except KeyError, e:
             logging.error('malformed request for javascript: %s' % e)
-            combined_path = None
-
-        if not combined_path:
             raise Http404('Combined script not found.')
 
-        cache_key = okonomi.utils.make_cache_key(combined_path)
+        cache_key = 'jsload:%s' % combined_path
         js = cache.get(cache_key)
         if js is None:
             js = okonomi.utils.generate_js(combined_path)
