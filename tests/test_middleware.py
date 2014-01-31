@@ -1,9 +1,7 @@
-from okonomi import middleware
+from jsload import middleware
 from helpers import FakeRequest, FakeResponse
 
-
 class TestContextProcessor(object):
-
     def test_return_empty_context(self):
         request = FakeRequest() 
         result = middleware.context_processor(request)
@@ -28,7 +26,6 @@ class TestContextProcessor(object):
 
 
 class TestOkonomiMiddleware(object):
-
     def test_early_exit_urls_and_paths_are_empty(self):
         request = FakeRequest(okonomi_paths=[], okonomi_urls=[])
         response = FakeResponse(content=middleware.OKONOMI_JS_PLACEHOLDER)
@@ -84,4 +81,3 @@ class TestOkonomiMiddleware(object):
         assert 'path/two"></script>' in result[1]
         assert '<script type="text/javascript" src="/url/one"></script>' in result[2]
         assert '<script type="text/javascript" src="/url/two"></script>' in result[3]
-

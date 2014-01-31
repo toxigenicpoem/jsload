@@ -5,7 +5,7 @@ OKONOMI_STATIC_URL = settings.OKONOMI_STATIC_URL
 OKONOMI_HTML_PATH_TEMPLATE = getattr(settings, 'OKONOMI_HTML_PATH_TEMPLATE', '<script type="text/javascript" src="%s"></script>\n')
 OKONOMI_HTML_URL_TEMPLATE = getattr(settings, 'OKONOMI_HTML_URL_TEMPLATE', '<script type="text/javascript" src="%s"></script>\n')
 
-class Okonomi(object):
+class JSLoad(object):
     """
     the okonomi middleware prepares unique combinations of javascript includes
     for rendered django templates. it stores the combined javascript in memcache
